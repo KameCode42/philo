@@ -6,7 +6,7 @@ RM			= rm -f
 FLAGS		= -Wall -Wextra -Werror -pthread -Iinc
 
 SRCS 		= \
-./src/philo.c
+./src/utils.c ./src/error.c ./src/philo.c \
 
 OBJS 		= $(SRCS:.c=.o)
 

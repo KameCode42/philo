@@ -1,22 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 13:58:22 by david             #+#    #+#             */
-/*   Updated: 2025/02/14 18:20:34 by david            ###   ########.fr       */
+/*   Created: 2025/02/14 13:31:08 by david             #+#    #+#             */
+/*   Updated: 2025/02/14 14:31:41 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+int	ft_atoi(const char *str)
 {
-	t_philo	philo;
+	int	i;
+	int	sign;
+	int	result;
 
-	if (check_args(&philo, argc, argv) != 0)
-		return (1);
-	return (0);
+	i = 0;
+	sign = 1;
+	result = 0;
+	while ((str[i] == 32) || (str[i] >= 9 && str[i] <= 13))
+	{
+		i++;
+	}
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+		{
+			sign = -sign;
+		}
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = (result * 10) + (str[i] - 48);
+		i++;
+	}
+	return (result * sign);
 }
