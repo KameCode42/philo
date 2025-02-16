@@ -103,3 +103,28 @@ Quand on n’a plus besoin d’un mutex, il nous faut le détruire avec la fonct
 int pthread_mutex_destroy(pthread_mutex_t *mutex);
 
 Cette fonction détruit un mutex déverrouillé, libérant les ressources qu’il détient. Dans l’implémentation LinuxThreads des threads POSIX, aucune ressource ne peut être associé à un mutex. Dans ce cas, pthread_mutex_destroy ne fait rien si ce n’est vérifier que le mutex n’est pas verrouillé
+
+-------------------------------------------------------------------------------------------------------------
+
+exemple time :
+
+void    check_philo_death(t_philo *philo)
+{
+    size_t current_time = get_current_time();
+    
+    // Vérifie si le philosophe n'a pas mangé depuis trop longtemps
+    if (current_time - philo->last_meal_time > philo->time_to_die)
+    {
+        // Le philosophe est mort
+        // ...
+    }
+}
+
+void    philo_eat(t_philo *philo)
+{
+    // Le philosophe commence à manger
+    philo->last_meal_time = get_current_time();
+    
+    // Simule le temps du repas
+    ft_usleep(philo->time_to_eat);
+}
