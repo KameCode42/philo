@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dle-fur <dle-fur@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:59:31 by david             #+#    #+#             */
-/*   Updated: 2025/02/16 14:55:28 by david            ###   ########.fr       */
+/*   Updated: 2025/02/16 16:21:41 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct s_simulation //simulation globale du programme : 5 800 200 200
+typedef struct s_table //simulation globale du programme : 5 800 200 200 remplace par table
 {
 	int				nbr_of_philo;
 	int				time_to_die;
@@ -28,7 +28,8 @@ typedef struct s_simulation //simulation globale du programme : 5 800 200 200
 	int				nbr_times_philo_eat;//nbr de repas que va manger le philo
 	size_t			start_time;//calcule temps ecouler depuis le debut de la simu en ms
 	pthread_mutex_t	*forks;//tableau mutex pour les fourchettes
-}		t_simulation;
+	pthread_mutex_t	*print;//eviter que les printf se superpose
+}		t_table;
 
 typedef struct s_philo
 {
@@ -36,7 +37,7 @@ typedef struct s_philo
 	pthread_t		thread;//represente un philo
 	pthread_mutex_t	*left_fork;//ptr vers fourchette gauche
 	pthread_mutex_t	*right_fork;//ptr vers fourchette droite
-	t_simulation	*simulation;//ptr vers la simu globale
+	//t_table			*table;//ptr vers la simu globale
 }		t_philo;
 
 //utils
@@ -45,7 +46,6 @@ size_t	current_time(void);
 int		ft_usleep(size_t ms);
 
 //error
-int		convert_args(t_simulation *simulation, char **argv);
-int		check_args(t_simulation *simulation, int argc, char **argv);
+int		check_args(int argc, char **argv);
 
 #endif
