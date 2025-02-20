@@ -6,7 +6,7 @@
 /*   By: dle-fur <dle-fur@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:59:31 by david             #+#    #+#             */
-/*   Updated: 2025/02/16 16:21:41 by dle-fur          ###   ########.fr       */
+/*   Updated: 2025/02/18 19:26:09 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ typedef struct s_table //simulation globale du programme : 5 800 200 200 remplac
 	int				nbr_times_philo_eat;//nbr de repas que va manger le philo
 	size_t			start_time;//calcule temps ecouler depuis le debut de la simu en ms
 	pthread_mutex_t	*forks;//tableau mutex pour les fourchettes
-	pthread_mutex_t	*print;//eviter que les printf se superpose
+	pthread_mutex_t	*print_lock;//eviter que les printf se superpose
 }		t_table;
 
 typedef struct s_philo
 {
 	int				id;//numeroter les philo
+	int				*philos;
 	pthread_t		thread;//represente un philo
 	pthread_mutex_t	*left_fork;//ptr vers fourchette gauche
 	pthread_mutex_t	*right_fork;//ptr vers fourchette droite
