@@ -36,6 +36,14 @@ Nombre de repas avant la fin de la simulation : 7
 
 max philo 200
 
+exemple : 
+./philo 5 800 200 200
+./philo 5 800 200 200 7
+
+nombre de philo ne peut pas etre 0
+a part philo le reste peut etre a 0
+aucun ne peut etre negatif
+
 -------------------------------------------------------------------------------------------------------------
 
 .h
