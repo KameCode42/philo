@@ -8,9 +8,9 @@ FLAGS		= -Wall -Wextra -Werror -pthread -Iinc
 SRCS		= ./src/utils.c \
 			./src/error.c \
 			./src/init.c \
-			./src/philo.c \
-			./src/time.c \
+			./src/condition.c \
 			./src/routine.c \
+			./src/philo.c \
 
 OBJS 		= $(SRCS:.c=.o)
 

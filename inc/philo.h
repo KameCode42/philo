@@ -6,32 +6,31 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:59:31 by david             #+#    #+#             */
-/*   Updated: 2025/04/12 15:10:33 by david            ###   ########.fr       */
+/*   Updated: 2025/04/12 17:29:30 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // =============================================================================
-// struct s_table :
+// struct s_table : simulation globale du programme
 //
-// simulation globale du programme : 5 800 200 200 (7) remplace par table
-// nbr de repas que va manger le philo
-// mettre fin a la simulation (philo mort ou tous manger)
-// calcule temps ecouler depuis le debut de la simu en ms
-// proteger contre les data races
-// tableau mutex pour les fourchettes
-// eviter que les printf se superpose
+// nbr_times_philo_eat -> nbr de repas que va manger le philo
+// sim_end -> mettre fin a la simulation (philo mort ou tous manger)
+// start_time -> calcule temps ecouler depuis le debut de la simu en ms
+// sim_lock -> proteger contre les data races
+// forks[MAX_PHILO] -> tableau mutex pour les fourchettes
+// print_lock -> eviter que les printf se superpose
 //
 // =============================================================================
 // struct s_philo :
 //
-// numeroter les philo
-// suivre cmb de fois un philo a manger, atteint nbr_times_philo_eat
-// dernier repas de chaque philo
-// represente un philo
-// ptr vers fourchette gauche
-// ptr vers fourchette droite
-// ptr vers les enums
-// ptr vers la simu globale
+// id -> numeroter les philo
+// meals_eaten -> cmb de fois un philo a manger, atteint nbr_times_philo_eat
+// last_meal_time -> dernier repas de chaque philo
+// thread -> represente un philo
+// left_fork -> ptr vers fourchette gauche
+// right_fork -> ptr vers fourchette droite
+// state -> ptr vers les enums
+// table -> ptr vers la simu globale
 //
 // =============================================================================
 
@@ -84,13 +83,11 @@ typedef struct s_philo
 //utils
 int		ft_atoi(const char *str);
 void	print_state(t_philo *philo, const char *message);
+size_t	current_time(void);
+int		ft_usleep(size_t ms);
 
 //error
 int		check_args(int argc, char **argv);
-
-//time
-size_t	current_time(void);
-int		ft_usleep(size_t ms);
 
 //init
 void	init_table(t_table *table, char **argv);

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   condition.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 13:58:22 by david             #+#    #+#             */
-/*   Updated: 2025/04/12 17:20:02 by david            ###   ########.fr       */
+/*   Created: 2025/04/12 17:30:01 by david             #+#    #+#             */
+/*   Updated: 2025/04/12 18:14:39 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
-{
-	t_table	table;
-	t_philo	philo[MAX_PHILO];
+//mort et fin de simu
 
-	if (check_args(argc, argv) != 0)
-		return (1);
-	init_all(philo, &table, argv);
-	return (0);
+void	check_philo_dead(t_philo *philo)
+{
+	int		i;
+	size_t	time_since_last_meal;//temps depuis le dernier repas
+	
 }
