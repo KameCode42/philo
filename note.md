@@ -136,3 +136,9 @@ void    philo_eat(t_philo *philo)
     // Simule le temps du repas
     ft_usleep(philo->time_to_eat);
 }
+
+-------------------------------------------------------------------------------------------------------------
+
+Etat d un philo etape par etape pour la routine
+
+- premiere etat, il pense

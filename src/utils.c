@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:08 by david             #+#    #+#             */
-/*   Updated: 2025/04/11 13:30:14 by david            ###   ########.fr       */
+/*   Updated: 2025/04/12 15:02:03 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,11 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (result * sign);
+}
+
+void	print_state(t_philo *philo, const char *message)
+{
+	pthread_mutex_lock(&philo->table->print_lock);
+	printf("Philosopher %d %s\n", philo->id, message);
+	pthread_mutex_unlock(&philo->table->print_lock);
 }

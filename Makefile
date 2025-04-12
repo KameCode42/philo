@@ -10,6 +10,7 @@ SRCS		= ./src/utils.c \
 			./src/init.c \
 			./src/philo.c \
 			./src/time.c \
+			./src/routine.c \
 
 OBJS 		= $(SRCS:.c=.o)
 
