@@ -6,17 +6,78 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:30:01 by david             #+#    #+#             */
-/*   Updated: 2025/04/12 18:14:39 by david            ###   ########.fr       */
+/*   Updated: 2025/04/13 12:56:46 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//mort et fin de simu
+// =============================================================================
+// check_philo_dead :
+//
+// time_since_last_meal = temps sans manger
+// time_since_last_meal = temps actuel - dernier repas
+// exemple :                   12h            10h    = 2h
+// donc philo mange toute les 2h sinon il meurt
+// si un philo meurt fin de la simu
+//
+// =============================================================================
+// all_philo_have_eat :
+//
+// meals_eaten permet de suivre le nombre de repas que le philo mange
+// si le nombre de repas n est pas atteint, return false
+// sinon return true si atteint
+//
+// =============================================================================
 
-void	check_philo_dead(t_philo *philo)
+bool	check_philo_dead(t_philo *philo)
 {
 	int		i;
-	size_t	time_since_last_meal;//temps depuis le dernier repas
-	
+	size_t	time_since_last_meal;
+
+	i = 0;
+	while (i < philo->table->nbr_of_philo)
+	{
+		time_since_last_meal = current_time() - philo[i].last_meal_time;
+		if (time_since_last_meal > philo->table->time_to_die)
+		{
+			philo[i].state = DEAD;
+			print_state(&philo[i], "is dead");
+			return (true);
+		}
+		i++;
+	}
+	return (false);
+}
+
+bool	all_philo_have_eat(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo->table->nbr_of_philo)
+	{
+		if (philo[i].meals_eaten < philo[i].table->nbr_times_philo_eat)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+void	monitoring_simulation(t_philo *philo)
+{
+	while (philo->table->sim_end == 0)
+	{
+		if (check_philo_dead(philo) == true)
+		{
+			philo->table->sim_end = 1;
+			break ;
+		}
+		if (all_philo_have_eat(philo) == true)
+		{
+			philo->table->sim_end = 1;
+			break ;
+		}
+		ft_usleep(500);
+	}
 }

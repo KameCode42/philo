@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:59:31 by david             #+#    #+#             */
-/*   Updated: 2025/04/12 17:29:30 by david            ###   ########.fr       */
+/*   Updated: 2025/04/13 12:46:53 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef enum e_philo_state
 typedef struct s_table
 {
 	int				nbr_of_philo;
-	int				time_to_die;
+	size_t			time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nbr_times_philo_eat;
@@ -101,5 +101,10 @@ bool	forks(t_philo *philo);
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	routine_philo(t_philo *philo);
+
+//condition
+bool	check_philo_dead(t_philo *philo);
+bool	all_philo_have_eat(t_philo *philo);\
+void	monitoring_simulation(t_philo *philo);
 
 #endif
