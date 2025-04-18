@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dle-fur <dle-fur@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:07:04 by david             #+#    #+#             */
-/*   Updated: 2025/04/12 11:26:06 by david            ###   ########.fr       */
+/*   Updated: 2025/04/17 15:02:46 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@
 
 void	init_table(t_table *table, char **argv)
 {
+	table->philo = ft_calloc(ft_atoi(argv[1]), sizeof(t_philo));
+	if (!table->philo)
+		return ;
 	table->nbr_of_philo = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);

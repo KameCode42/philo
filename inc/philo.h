@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dle-fur <dle-fur@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:59:31 by david             #+#    #+#             */
-/*   Updated: 2025/04/13 12:46:53 by david            ###   ########.fr       */
+/*   Updated: 2025/04/17 15:01:30 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdbool.h>
+# include <stdint.h>
 
 # define MAX_PHILO 200
+
+typedef struct s_philo	t_philo;
 
 typedef enum e_philo_state
 {
@@ -63,9 +66,11 @@ typedef struct s_table
 	int				nbr_times_philo_eat;
 	int				sim_end;
 	size_t			start_time;
+	pthread_t		monitoring;
 	pthread_mutex_t	sim_lock;
 	pthread_mutex_t	forks[MAX_PHILO];
 	pthread_mutex_t	print_lock;
+	t_philo			*philo;
 }		t_table;
 
 typedef struct s_philo
@@ -100,11 +105,14 @@ void	philo_think(t_philo *philo);
 bool	forks(t_philo *philo);
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
-void	routine_philo(t_philo *philo);
+void	*routine_philo(void *param);
 
 //condition
 bool	check_philo_dead(t_philo *philo);
 bool	all_philo_have_eat(t_philo *philo);\
-void	monitoring_simulation(t_philo *philo);
+void	*monitoring_simulation(void *param);
+
+void	create_threads(t_philo *philo);
+void	*ft_calloc(size_t count, size_t size);
 
 #endif

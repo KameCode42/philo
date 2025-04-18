@@ -3,7 +3,7 @@ NAME		= philo
 CC			= gcc
 RM			= rm -f
 
-FLAGS		= -Wall -Wextra -Werror -pthread -Iinc
+FLAGS		= -Wall -Wextra -Werror -pthread -Iinc -g -O0 -pthread
 
 SRCS		= ./src/utils.c \
 			./src/error.c \
@@ -11,6 +11,7 @@ SRCS		= ./src/utils.c \
 			./src/condition.c \
 			./src/routine.c \
 			./src/philo.c \
+			./src/start_threads.c \
 
 OBJS 		= $(SRCS:.c=.o)
 

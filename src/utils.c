@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dle-fur <dle-fur@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:08 by david             #+#    #+#             */
-/*   Updated: 2025/04/12 17:17:42 by david            ###   ########.fr       */
+/*   Updated: 2025/04/17 15:34:12 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_atoi(const char *str)
 void	print_state(t_philo *philo, const char *message)
 {
 	pthread_mutex_lock(&philo->table->print_lock);
-	printf("Philosopher %d %s\n", philo->id, message);
+	printf("%lu Philosopher %d %s\n", current_time() - philo->table->start_time, philo->id, message);
 	pthread_mutex_unlock(&philo->table->print_lock);
 }
 
@@ -88,4 +88,27 @@ int	ft_usleep(size_t ms)
 	while ((current_time() - start) < ms)
 		usleep(500);
 	return (0);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	size_t			i;
+	size_t			total;
+	void			*ptr;
+	unsigned char	*temp;
+
+	i = 0;
+	if (size != 0 && count > SIZE_MAX / size)
+		return (NULL);
+	total = count * size;
+	ptr = malloc(total);
+	if (!ptr)
+		return (NULL);
+	temp = (unsigned char *)ptr;
+	while (i < total)
+	{
+		temp[i] = 0;
+		i++;
+	}
+	return (ptr);
 }

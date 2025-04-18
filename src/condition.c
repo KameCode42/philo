@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   condition.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dle-fur <dle-fur@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:30:01 by david             #+#    #+#             */
-/*   Updated: 2025/04/13 12:56:46 by david            ###   ########.fr       */
+/*   Updated: 2025/04/17 14:49:40 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,24 @@ bool	all_philo_have_eat(t_philo *philo)
 	return (true);
 }
 
-void	monitoring_simulation(t_philo *philo)
+void	*monitoring_simulation(void *param)
 {
-	while (philo->table->sim_end == 0)
+	t_table *table;
+
+	table = (t_table *)param;
+	while (table->sim_end == 0)
 	{
-		if (check_philo_dead(philo) == true)
+		if (check_philo_dead(table->philo) == true)
 		{
-			philo->table->sim_end = 1;
+			table->sim_end = 1;
 			break ;
 		}
-		if (all_philo_have_eat(philo) == true)
+		if (all_philo_have_eat(table->philo) == true)
 		{
-			philo->table->sim_end = 1;
+			table->sim_end = 1;
 			break ;
 		}
 		ft_usleep(500);
 	}
+	return (NULL);
 }

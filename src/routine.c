@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dle-fur <dle-fur@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:26:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/12 17:16:30 by david            ###   ########.fr       */
+/*   Updated: 2025/04/17 14:47:42 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,16 @@ void	philo_sleep(t_philo *philo)
 	ft_usleep(philo->table->time_to_sleep);
 }
 
-void	routine_philo(t_philo *philo)
+void	*routine_philo(void *param)
 {
+	t_philo	*philo;
+
+	philo = (t_philo *)param;
 	while (1)
 	{
 		philo_think(philo);
 		philo_eat(philo);
 		philo_sleep(philo);
 	}
+	return (NULL);
 }

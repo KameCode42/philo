@@ -1,41 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   start_threads.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dle-fur <dle-fur@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 13:37:37 by david             #+#    #+#             */
-/*   Updated: 2025/04/17 17:11:38 by dle-fur          ###   ########.fr       */
+/*   Created: 2025/04/17 14:26:07 by dle-fur           #+#    #+#             */
+/*   Updated: 2025/04/17 15:03:29 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_args(int argc, char **argv)
+void	create_threads(t_philo *philo)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	if (argc < 5 || argc > 6)
+	pthread_create(&philo->table->monitoring, NULL, monitoring_simulation, &philo->table);
+	while (i < philo->table->nbr_of_philo)
 	{
-		printf("Error : try with 5 or 6 arguments\n");
-		return (1);
+		pthread_create(&philo[i].thread, NULL, routine_philo, &philo[i]);
+		i++;
 	}
-	while (++i < argc)
-	{
-		j = 0;
-		while (argv[i][j] != '\0')
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9' 
-				|| ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > MAX_PHILO)
-			{
-				printf("Error : incorrect arguments\n");
-				return (1);
-			}
-			j++;
-		}
-	}
-	return (0);
+	ft_usleep(100);
 }
