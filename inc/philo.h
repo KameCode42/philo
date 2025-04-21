@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:18 by david             #+#    #+#             */
-/*   Updated: 2025/04/21 16:33:00 by david            ###   ########.fr       */
+/*   Updated: 2025/04/21 17:04:30 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,12 @@ void	release_forks(t_philo *philo);
 //conditions
 bool	philo_is_dead(t_table *table);
 bool	all_philo_have_eat(t_table *table);
+
+//routine
+void	philo_think(t_philo *philo);
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_die(t_philo *philo);
 
 //main
 int		check_args(int argc, char **argv);

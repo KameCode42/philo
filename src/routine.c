@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/21 16:53:58 by david            ###   ########.fr       */
+/*   Updated: 2025/04/21 17:06:11 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	philo_think(t_philo *philo)
 {
-	if (philo_is_dead(philo) == true)
+	if (philo_is_dead(philo->table) == true)
 		return ;
 	pthread_mutex_lock(&philo->state_lock);
 	philo->state = THINK;
@@ -24,7 +24,7 @@ void	philo_think(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
-	if (philo_is_dead(philo) == true)
+	if (philo_is_dead(philo->table) == true)
 		return ;
 	if (take_forks(philo) == false)
 		return ;
@@ -40,7 +40,7 @@ void	philo_eat(t_philo *philo)
 
 void	philo_sleep(t_philo *philo)
 {
-	if (philo_is_dead(philo) == true)
+	if (philo_is_dead(philo->table) == true)
 		return ;
 	pthread_mutex_lock(&philo->state_lock);
 	philo->state = SLEEP;
@@ -53,7 +53,7 @@ void	philo_die(t_philo *philo)
 {
 	if (philo->table->time_to_die < current_time() - philo->last_meal_time)
 	{
-		if (philo_is_dead(philo) == true)
+		if (philo_is_dead(philo->table) == true)
 		{
 			pthread_mutex_lock(&philo->state_lock);
 			philo->state = DEAD;

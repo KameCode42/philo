@@ -10,6 +10,7 @@ SRCS		= ./src/utils.c \
 			./src/init.c \
 			./src/conditions.c \
 			./src/forks.c \
+			./src/routine.c \
 			./src/philo.c \
 
 OBJS 		= $(SRCS:.c=.o)
