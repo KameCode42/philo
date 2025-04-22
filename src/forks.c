@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 12:47:40 by david             #+#    #+#             */
-/*   Updated: 2025/04/21 16:22:31 by david            ###   ########.fr       */
+/*   Updated: 2025/04/22 16:42:01 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	take_first_fork(t_philo *philo)
 {
 	if (pthread_mutex_lock(&philo->fork_lock) != 0)
 		return (false);
-	print_state(philo, "has taken a fork");
+	print_state(philo, "has taken a firsr fork");
 	return (true);
 }
 

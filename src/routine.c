@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/21 17:06:11 by david            ###   ########.fr       */
+/*   Updated: 2025/04/22 15:40:55 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	philo_think(t_philo *philo)
 {
-	if (philo_is_dead(philo->table) == true)
+	if (philo_is_dead(philo) == true)
 		return ;
 	pthread_mutex_lock(&philo->state_lock);
 	philo->state = THINK;
@@ -24,7 +24,7 @@ void	philo_think(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
-	if (philo_is_dead(philo->table) == true)
+	if (philo_is_dead(philo) == true)
 		return ;
 	if (take_forks(philo) == false)
 		return ;
@@ -40,7 +40,7 @@ void	philo_eat(t_philo *philo)
 
 void	philo_sleep(t_philo *philo)
 {
-	if (philo_is_dead(philo->table) == true)
+	if (philo_is_dead(philo) == true)
 		return ;
 	pthread_mutex_lock(&philo->state_lock);
 	philo->state = SLEEP;
@@ -49,37 +49,17 @@ void	philo_sleep(t_philo *philo)
 	ft_usleep(philo->table->time_to_sleep);
 }
 
-void	philo_die(t_philo *philo)
-{
-	if (philo->table->time_to_die < current_time() - philo->last_meal_time)
-	{
-		if (philo_is_dead(philo->table) == true)
-		{
-			pthread_mutex_lock(&philo->state_lock);
-			philo->state = DEAD;
-			print_state(philo, "is dead");
-			pthread_mutex_unlock(&philo->state_lock);
-		}
-	}
-}
-
-
-/*
 void	*routine_philo(void *param)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)param;
-	print_state(philo, "is thinking");
-	while (!philo_is_dead(philo->table) && !all_philo_have_eat))
+	philo_think(philo);
+	while (!philo_is_dead(philo) && !all_philo_have_eat(philo->table))
 	{
-	//si il pense, prend lesd fourchette
-	//si il a les fork, il mange
-	// si il mange, il dort
-	// si il dort, il pense
-	//mourir
-	// check les etat
+		philo_eat(philo);
+		philo_sleep(philo);
+		philo_think(philo);
 	}
 	return (NULL);
 }
-*/

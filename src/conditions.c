@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 11:49:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/21 16:49:46 by david            ###   ########.fr       */
+/*   Updated: 2025/04/22 15:39:42 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,20 @@
 //
 // =============================================================================
 
-bool	philo_is_dead(t_table *table)
+bool	philo_is_dead(t_philo *philo)
 {
 	size_t	time_since_last_meal;
 
-	pthread_mutex_lock(&table->philo->state_lock);
-	time_since_last_meal = current_time() - table->philo->last_meal_time;
-	if (time_since_last_meal > table->time_to_die)
+	pthread_mutex_lock(&philo->state_lock);
+	time_since_last_meal = current_time() - philo->last_meal_time;
+	if (time_since_last_meal > philo->table->time_to_die)
 	{
-		table->philo->state = DEAD;
-		pthread_mutex_unlock(&table->philo->state_lock);
+		philo->state = DEAD;
+		print_state(philo, "is dead");
+		pthread_mutex_unlock(&philo->state_lock);
 		return (true);
 	}
-	pthread_mutex_unlock(&table->philo->state_lock);
+	pthread_mutex_unlock(&philo->state_lock);
 	return (false);
 }
 
@@ -59,4 +60,13 @@ bool	all_philo_have_eat(t_table *table)
 	}
 	pthread_mutex_unlock(&table->philo->state_lock);
 	return (true);
+}
+
+bool	check_state(t_philo *philo, t_philo_state state)
+{
+	bool	value;
+	pthread_mutex_lock(&philo->state_lock);
+	value = (philo->state == state);
+	pthread_mutex_unlock(&philo->state_lock);
+	return (value);
 }

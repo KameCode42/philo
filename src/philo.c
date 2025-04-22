@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:38 by david             #+#    #+#             */
-/*   Updated: 2025/04/21 13:50:19 by david            ###   ########.fr       */
+/*   Updated: 2025/04/22 16:16:13 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,22 @@ int	check_args(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
+	t_table	table;
+
 	if (check_args(argc, argv) != 0)
 		return (1);
+	init_table(&table, argv);
 	return (0);
 }
+
+
+/*
+test
+archlinux% ./philo 2 800 200 200
+0 Philosopher 1 is thinking
+0 Philosopher 1 has taken a fork
+la il doit manger
+50 Philosopher 2 is thinking
+^C
+archlinux% 
+*/

@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:07:04 by david             #+#    #+#             */
-/*   Updated: 2025/04/21 14:06:33 by david            ###   ########.fr       */
+/*   Updated: 2025/04/22 16:14:52 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,31 @@
 //
 // =============================================================================
 
+void	create_threads(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->nbr_of_philo)
+	{
+		pthread_create(&table->philo[i].thread, NULL, routine_philo, &table->philo[i]);
+		ft_usleep(50);
+		i++;
+	}
+}
+
+void	wait_for_thread(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->nbr_of_philo)
+	{
+		pthread_join(table->philo[i].thread, NULL);
+		i++;
+	}
+}
+
 void	init_philo(t_table *table)
 {
 	int	i;
@@ -53,8 +78,8 @@ void	init_philo(t_table *table)
 		table->philo[i].next = &table->philo[(i + 1) % table->nbr_of_philo];
 		i++;
 	}
-	//start_thread
-	//join_thread
+	create_threads(table);
+	wait_for_thread(table);
 }
 
 void	init_table(t_table *table, char **argv)

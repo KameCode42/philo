@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:18 by david             #+#    #+#             */
-/*   Updated: 2025/04/21 17:04:30 by david            ###   ########.fr       */
+/*   Updated: 2025/04/22 16:14:09 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef enum e_philo_state
 	EAT,
 	SLEEP,
 	THINK,
-	DEAD,
-	TOOK_FORKS
+	DEAD
+	//TOOK_FORKS
 }	t_philo_state;
 
 typedef struct s_philo
@@ -94,6 +94,8 @@ size_t	current_time(void);
 int		ft_usleep(size_t ms);
 
 //init
+void	create_threads(t_table *table);
+void	wait_for_thread(t_table *table);
 void	init_philo(t_table *table);
 void	init_table(t_table *table, char **argv);
 
@@ -105,14 +107,15 @@ bool	take_forks(t_philo *philo);
 void	release_forks(t_philo *philo);
 
 //conditions
-bool	philo_is_dead(t_table *table);
+bool	philo_is_dead(t_philo *philo);
 bool	all_philo_have_eat(t_table *table);
+bool	check_state(t_philo *philo, t_philo_state state);
 
 //routine
 void	philo_think(t_philo *philo);
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
-void	philo_die(t_philo *philo);
+void	*routine_philo(void *param);
 
 //main
 int		check_args(int argc, char **argv);
