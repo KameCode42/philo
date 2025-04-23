@@ -66,7 +66,6 @@ void	*routine_philo(void *param)
 
 
 
-
 /*
 void	*routine_philo(void *param)
 {
@@ -83,21 +82,17 @@ void	*routine_philo(void *param)
 	{
 		// Philosophe pense
 		philo_think(philo);
-		if (philo_is_dead(philo)) // Si le philosophe est mort après avoir pensé, on arrête
-			break;
+
 
 		// Philosophe mange
 		philo_eat(philo);
-		if (philo_is_dead(philo)) // Si le philosophe est mort après avoir mangé, on arrête
-			break;
+
 
 		// Philosophe dort
 		philo_sleep(philo);
-		if (philo_is_dead(philo)) // Si le philosophe est mort après avoir dormi, on arrête
-			break;
+
 	}
 
 	return (NULL);
 }
-
 */

@@ -6,7 +6,7 @@
 /*   By: dle-fur <dle-fur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 12:47:40 by david             #+#    #+#             */
-/*   Updated: 2025/04/23 11:11:09 by dle-fur          ###   ########.fr       */
+/*   Updated: 2025/04/23 13:23:44 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,3 +78,47 @@ void	release_forks(t_philo *philo)
 	pthread_mutex_unlock(&philo->fork_lock);
 	pthread_mutex_unlock(&philo->next->fork_lock);
 }
+
+/*
+bool	take_forks(t_philo *philo)
+{
+	pthread_mutex_t *first;
+	pthread_mutex_t *second;
+
+	// Philosophe pair/impair : ordre des fourchettes
+	if (philo->id % 2 == 0)
+	{
+		first = &philo->next->fork_lock;
+		second = &philo->fork_lock;
+	}
+	else
+	{
+		first = &philo->fork_lock;
+		second = &philo->next->fork_lock;
+	}
+
+	// Si les deux fourchettes sont les mêmes => on ne peut en prendre qu'une
+	if (first == second)
+	{
+		pthread_mutex_lock(first);
+		print_state(philo, "has taken a fork");
+		// On ne tente pas de locker deux fois le même mutex
+		return (false);
+	}
+
+	// Sinon, on lock les deux
+	if (pthread_mutex_lock(first) != 0)
+		return (false);
+	print_state(philo, "has taken a fork");
+
+	if (pthread_mutex_lock(second) != 0)
+	{
+		pthread_mutex_unlock(first);
+		return (false);
+	}
+	print_state(philo, "has taken a second fork");
+
+	return (true);
+}
+
+*/
