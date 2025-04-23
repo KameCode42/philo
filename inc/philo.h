@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dle-fur <dle-fur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:18 by david             #+#    #+#             */
-/*   Updated: 2025/04/22 16:14:09 by david            ###   ########.fr       */
+/*   Updated: 2025/04/23 11:08:15 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct s_table
 	size_t			time_to_sleep;
 	int				nbr_meals_eat;
 	size_t			start_time;
+	bool			someone_died;
+	pthread_mutex_t	death_lock;
 	pthread_mutex_t	print_lock;
 	t_philo			philo[MAX_PHILO];
 }	t_table;
@@ -100,16 +102,12 @@ void	init_philo(t_table *table);
 void	init_table(t_table *table, char **argv);
 
 //forks
-bool	take_first_fork(t_philo *philo);
-bool	take_second_fork(t_philo *philo);
-bool	forks_order(t_philo *philo);
 bool	take_forks(t_philo *philo);
 void	release_forks(t_philo *philo);
 
 //conditions
 bool	philo_is_dead(t_philo *philo);
 bool	all_philo_have_eat(t_table *table);
-bool	check_state(t_philo *philo, t_philo_state state);
 
 //routine
 void	philo_think(t_philo *philo);

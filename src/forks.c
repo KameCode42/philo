@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dle-fur <dle-fur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 12:47:40 by david             #+#    #+#             */
-/*   Updated: 2025/04/22 16:42:01 by david            ###   ########.fr       */
+/*   Updated: 2025/04/23 11:11:09 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,51 +44,32 @@
 //
 // =============================================================================
 
-bool	take_first_fork(t_philo *philo)
-{
-	if (pthread_mutex_lock(&philo->fork_lock) != 0)
-		return (false);
-	print_state(philo, "has taken a firsr fork");
-	return (true);
-}
-
-bool	take_second_fork(t_philo *philo)
-{
-	if (pthread_mutex_lock(&philo->next->fork_lock) != 0)
-		return (false);
-	print_state(philo, "has taken a fork");
-	return (true);
-}
-
-bool	forks_order(t_philo *philo)
+bool	take_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
-		if (take_first_fork(philo->next) == false)
+		if (pthread_mutex_lock(&philo->next->fork_lock) != 0)
 			return (false);
-		if (take_second_fork(philo) == false)
+		print_state(philo, "has taken a fork");
+		if (pthread_mutex_lock(&philo->fork_lock) != 0)
 		{
-			pthread_mutex_unlock(&philo->next->fork_lock);
+			pthread_mutex_lock(&philo->next->fork_lock);
 			return (false);
 		}
+		print_state(philo, "has taken a second fork");
 	}
 	else
 	{
-		if (take_first_fork(philo) == false)
+		if (pthread_mutex_lock(&philo->fork_lock) != 0)
 			return (false);
-		if (take_second_fork(philo->next) == false)
+		print_state(philo, "has taken a fork");
+		if (pthread_mutex_lock(&philo->next->fork_lock) != 0)
 		{
 			pthread_mutex_unlock(&philo->fork_lock);
 			return (false);
 		}
+		print_state(philo, "has taken a second fork");
 	}
-	return (true);
-}
-
-bool	take_forks(t_philo *philo)
-{
-	if (forks_order(philo) == false)
-		return (false);
 	return (true);
 }
 

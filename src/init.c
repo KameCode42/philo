@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dle-fur <dle-fur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:07:04 by david             #+#    #+#             */
-/*   Updated: 2025/04/22 16:14:52 by david            ###   ########.fr       */
+/*   Updated: 2025/04/23 12:10:53 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	init_table(t_table *table, char **argv)
 	else
 		table->nbr_meals_eat = -1;
 	table->start_time = current_time();
+	table->someone_died = false;
 	pthread_mutex_init(&table->print_lock, NULL);
+	pthread_mutex_init(&table->death_lock, NULL);
 	init_philo(table);
 }

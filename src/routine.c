@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+  /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
@@ -63,3 +63,41 @@ void	*routine_philo(void *param)
 	}
 	return (NULL);
 }
+
+
+
+
+/*
+void	*routine_philo(void *param)
+{
+	t_philo *philo;
+
+	philo = (t_philo *)param;
+
+	// Délaie de quelques microsecondes pour éviter la synchronisation parfaite (optionnel)
+	if (philo->id % 2 == 0)
+		usleep(100);
+
+	// Boucle principale, s'arrête si le philosophe est mort ou a mangé le nombre suffisant de repas
+	while (!philo_is_dead(philo) && !all_philo_have_eat(philo->table))
+	{
+		// Philosophe pense
+		philo_think(philo);
+		if (philo_is_dead(philo)) // Si le philosophe est mort après avoir pensé, on arrête
+			break;
+
+		// Philosophe mange
+		philo_eat(philo);
+		if (philo_is_dead(philo)) // Si le philosophe est mort après avoir mangé, on arrête
+			break;
+
+		// Philosophe dort
+		philo_sleep(philo);
+		if (philo_is_dead(philo)) // Si le philosophe est mort après avoir dormi, on arrête
+			break;
+	}
+
+	return (NULL);
+}
+
+*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conditions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dle-fur <dle-fur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 11:49:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/22 15:39:42 by david            ###   ########.fr       */
+/*   Updated: 2025/04/23 11:08:52 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,36 +37,38 @@ bool	philo_is_dead(t_philo *philo)
 
 	pthread_mutex_lock(&philo->state_lock);
 	time_since_last_meal = current_time() - philo->last_meal_time;
-	if (time_since_last_meal > philo->table->time_to_die)
+	pthread_mutex_unlock(&philo->state_lock);
+	if (time_since_last_meal >= philo->table->time_to_die)
 	{
-		philo->state = DEAD;
-		print_state(philo, "is dead");
-		pthread_mutex_unlock(&philo->state_lock);
+		pthread_mutex_lock(&philo->table->death_lock);
+		if (philo->table->someone_died == false)
+		{
+			print_state(philo, "is dead");
+			philo->table->someone_died = true;
+		}
+		pthread_mutex_unlock(&philo->table->death_lock);
 		return (true);
 	}
-	pthread_mutex_unlock(&philo->state_lock);
 	return (false);
 }
 
 bool	all_philo_have_eat(t_table *table)
 {
+	int	i;
+
 	if (table->nbr_meals_eat == -1)
 		return (false);
-	pthread_mutex_lock(&table->philo->state_lock);
-	if (table->philo->meals_eaten < table->philo->table->nbr_meals_eat)
+	i = 0;
+	while (i < table->nbr_of_philo)
 	{
-		pthread_mutex_unlock(&table->philo->state_lock);
-		return (false);
+		pthread_mutex_lock(&table->philo[i].state_lock);
+		if (table->philo[i].meals_eaten < table->nbr_meals_eat)
+		{
+			pthread_mutex_unlock(&table->philo[i].state_lock);
+			return (false);
+		}
+		pthread_mutex_unlock(&table->philo[i].state_lock);
+		i++;
 	}
-	pthread_mutex_unlock(&table->philo->state_lock);
 	return (true);
-}
-
-bool	check_state(t_philo *philo, t_philo_state state)
-{
-	bool	value;
-	pthread_mutex_lock(&philo->state_lock);
-	value = (philo->state == state);
-	pthread_mutex_unlock(&philo->state_lock);
-	return (value);
 }
