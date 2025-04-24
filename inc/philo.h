@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dle-fur <dle-fur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:18 by david             #+#    #+#             */
-/*   Updated: 2025/04/23 11:08:15 by dle-fur          ###   ########.fr       */
+/*   Updated: 2025/04/24 11:20:20 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 // time_to_sleep -> temps pour dormir
 // nbr_meals_eat -> nbr de repas que va manger le philo = option dans args
 // start_time -> debut de simulation = temps actuel
+// someone_died -> boolean pour la mort
+// death_lock -> verouille l'etat de mort
 // print_lock -> verouille les print (evite data race)
 // philo[MAX_PHILO] -> la structure table a acces a la structure philo
 //
@@ -57,7 +59,6 @@ typedef enum e_philo_state
 	SLEEP,
 	THINK,
 	DEAD
-	//TOOK_FORKS
 }	t_philo_state;
 
 typedef struct s_philo
@@ -113,6 +114,7 @@ bool	all_philo_have_eat(t_table *table);
 void	philo_think(t_philo *philo);
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
+void	philo_die(t_philo *philo);
 void	*routine_philo(void *param);
 
 //main

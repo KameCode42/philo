@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:38 by david             #+#    #+#             */
-/*   Updated: 2025/04/22 16:16:13 by david            ###   ########.fr       */
+/*   Updated: 2025/04/24 11:20:08 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,3 @@ int	main(int argc, char **argv)
 	init_table(&table, argv);
 	return (0);
 }
-
-
-/*
-test
-archlinux% ./philo 2 800 200 200
-0 Philosopher 1 is thinking
-0 Philosopher 1 has taken a fork
-la il doit manger
-50 Philosopher 2 is thinking
-^C
-archlinux% 
-*/

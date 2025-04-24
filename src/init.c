@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dle-fur <dle-fur@student.42.fr>            +#+  +:+       +#+        */
+/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:07:04 by david             #+#    #+#             */
-/*   Updated: 2025/04/23 12:10:53 by dle-fur          ###   ########.fr       */
+/*   Updated: 2025/04/24 11:17:51 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	create_threads(t_table *table)
 	i = 0;
 	while (i < table->nbr_of_philo)
 	{
-		pthread_create(&table->philo[i].thread, NULL, routine_philo, &table->philo[i]);
+		pthread_create(&table->philo[i].thread, NULL, routine_philo,
+			&table->philo[i]);
 		ft_usleep(50);
 		i++;
 	}

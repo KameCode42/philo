@@ -1,4 +1,4 @@
-  /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
@@ -6,11 +6,22 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/22 15:40:55 by david            ###   ########.fr       */
+/*   Updated: 2025/04/24 11:21:57 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+// =============================================================================
+// routine_philo :
+//
+// 1 -> philo pense
+// 2 -> il mange
+// 3 -> apres manger, il dort
+// 4 -> il repense
+// si il y a un mort la simulation s'arrete
+//
+// =============================================================================
 
 void	philo_think(t_philo *philo)
 {
@@ -49,50 +60,32 @@ void	philo_sleep(t_philo *philo)
 	ft_usleep(philo->table->time_to_sleep);
 }
 
+void	philo_die(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->table->death_lock);
+	if (philo->table->someone_died == true)
+	{
+		print_state(philo, "is dead");
+		philo->table->someone_died = true;
+	}
+	pthread_mutex_unlock(&philo->table->death_lock);
+}
+
 void	*routine_philo(void *param)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)param;
 	philo_think(philo);
+	//if (philo->id % 2 == 0)
+		//usleep(100);
 	while (!philo_is_dead(philo) && !all_philo_have_eat(philo->table))
 	{
 		philo_eat(philo);
 		philo_sleep(philo);
 		philo_think(philo);
 	}
+	if (philo_is_dead(philo))
+		philo_die(philo);
 	return (NULL);
 }
-
-
-
-/*
-void	*routine_philo(void *param)
-{
-	t_philo *philo;
-
-	philo = (t_philo *)param;
-
-	// Délaie de quelques microsecondes pour éviter la synchronisation parfaite (optionnel)
-	if (philo->id % 2 == 0)
-		usleep(100);
-
-	// Boucle principale, s'arrête si le philosophe est mort ou a mangé le nombre suffisant de repas
-	while (!philo_is_dead(philo) && !all_philo_have_eat(philo->table))
-	{
-		// Philosophe pense
-		philo_think(philo);
-
-
-		// Philosophe mange
-		philo_eat(philo);
-
-
-		// Philosophe dort
-		philo_sleep(philo);
-
-	}
-
-	return (NULL);
-}
-*/
