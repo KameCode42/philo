@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 11:49:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/24 11:16:40 by david            ###   ########.fr       */
+/*   Updated: 2025/04/24 13:18:01 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ bool	philo_is_dead(t_philo *philo)
 	time_since_last_meal = current_time() - philo->last_meal_time;
 	is_dead = (time_since_last_meal >= philo->table->time_to_die);
 	if (is_dead)
+	{
 		philo->state = DEAD;
+		philo_die(philo);
+	}
 	pthread_mutex_unlock(&philo->state_lock);
 	return (is_dead);
 }

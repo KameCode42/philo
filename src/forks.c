@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 12:47:40 by david             #+#    #+#             */
-/*   Updated: 2025/04/24 11:17:29 by david            ###   ########.fr       */
+/*   Updated: 2025/04/24 13:55:17 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ bool	take_forks(t_philo *philo)
 		if (pthread_mutex_lock(&philo->next->fork_lock) != 0)
 			return (false);
 		print_state(philo, "has taken a fork");
+		if (philo == philo->next)
+		{
+			ft_usleep(philo->table->time_to_die);
+			return (false);
+		}
 		if (pthread_mutex_lock(&philo->fork_lock) != 0)
 		{
 			pthread_mutex_lock(&philo->next->fork_lock);
@@ -55,6 +60,11 @@ bool	take_forks(t_philo *philo)
 		if (pthread_mutex_lock(&philo->fork_lock) != 0)
 			return (false);
 		print_state(philo, "has taken a fork");
+		if (philo == philo->next)
+		{
+			ft_usleep(philo->table->time_to_die);
+			return (false);
+		}
 		if (pthread_mutex_lock(&philo->next->fork_lock) != 0)
 		{
 			pthread_mutex_unlock(&philo->fork_lock);

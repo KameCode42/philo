@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:44 by david             #+#    #+#             */
-/*   Updated: 2025/04/24 11:14:00 by david            ###   ########.fr       */
+/*   Updated: 2025/04/24 13:54:57 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_usleep(size_t ms)
 	size_t	start;
 
 	start = current_time();
-	while ((current_time() - start) < ms)
+	while (current_time() - start < ms)
 		usleep(500);
 	return (0);
 }

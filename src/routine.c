@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/24 11:21:57 by david            ###   ########.fr       */
+/*   Updated: 2025/04/24 13:55:38 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	philo_sleep(t_philo *philo)
 void	philo_die(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->death_lock);
-	if (philo->table->someone_died == true)
+	if (philo->table->someone_died == false)
 	{
 		print_state(philo, "is dead");
 		philo->table->someone_died = true;
@@ -77,15 +77,14 @@ void	*routine_philo(void *param)
 
 	philo = (t_philo *)param;
 	philo_think(philo);
-	//if (philo->id % 2 == 0)
-		//usleep(100);
+	if (philo->id % 2 == 0)
+		ft_usleep(100);
 	while (!philo_is_dead(philo) && !all_philo_have_eat(philo->table))
 	{
 		philo_eat(philo);
 		philo_sleep(philo);
 		philo_think(philo);
+		ft_usleep(5);
 	}
-	if (philo_is_dead(philo))
-		philo_die(philo);
 	return (NULL);
 }
