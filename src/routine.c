@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/24 13:59:40 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 10:56:06 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 void	philo_think(t_philo *philo)
 {
-	if (philo_is_dead(philo) == true)
+	if (philo_is_dead(philo->table) == true)
 		return ;
 	pthread_mutex_lock(&philo->state_lock);
 	philo->state = THINK;
@@ -35,7 +35,7 @@ void	philo_think(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
-	if (philo_is_dead(philo) == true)
+	if (philo_is_dead(philo->table) == true)
 		return ;
 	if (take_forks(philo) == false)
 		return ;
@@ -51,7 +51,7 @@ void	philo_eat(t_philo *philo)
 
 void	philo_sleep(t_philo *philo)
 {
-	if (philo_is_dead(philo) == true)
+	if (philo_is_dead(philo->table) == true)
 		return ;
 	pthread_mutex_lock(&philo->state_lock);
 	philo->state = SLEEP;
@@ -60,15 +60,18 @@ void	philo_sleep(t_philo *philo)
 	ft_usleep(philo->table->time_to_sleep);
 }
 
-void	philo_die(t_philo *philo)//a modifier
+void	philo_die(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->table->death_lock);
-	if (philo->table->someone_died == false)
+	size_t	time_since_last_meal;
+
+	pthread_mutex_lock(&philo->state_lock);
+	time_since_last_meal = current_time() - philo->last_meal_time;
+	if (philo->state != DEAD && time_since_last_meal >= philo->table->time_to_die)
 	{
-		print_state(philo, "is dead");
-		philo->table->someone_died = true;
+		philo->state = DEAD;
+		print_state(philo, "died");
 	}
-	pthread_mutex_unlock(&philo->table->death_lock);
+	pthread_mutex_unlock(&philo->state_lock);
 }
 
 void	*routine_philo(void *param)
@@ -79,12 +82,28 @@ void	*routine_philo(void *param)
 	philo_think(philo);
 	if (philo->id % 2 == 0)
 		ft_usleep(100);
-	while (!philo_is_dead(philo) && !all_philo_have_eat(philo->table))
+	while (!philo_is_dead(philo->table) && !all_philo_have_eat(philo->table))
 	{
 		philo_eat(philo);
+		philo_die(philo);
 		philo_sleep(philo);
+		philo_die(philo);
 		philo_think(philo);
+		philo_die(philo);
 		ft_usleep(5);
 	}
 	return (NULL);
 }
+
+/*
+void	philo_die(t_philo *philo)//a modifier
+{
+	pthread_mutex_lock(&philo->table->death_lock);
+	if (philo->table->someone_died == false)
+	{
+		print_state(philo, "is dead");
+		philo->table->someone_died = true;
+	}
+	pthread_mutex_unlock(&philo->table->death_lock);
+}
+*/

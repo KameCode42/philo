@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:18 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 10:11:48 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 10:55:08 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ typedef struct s_table
 	size_t			time_to_sleep;
 	int				nbr_meals_eat;
 	size_t			start_time;
-	bool			someone_died;
 	pthread_mutex_t	death_lock;
 	pthread_mutex_t	print_lock;
 	t_philo			philo[MAX_PHILO];
@@ -109,7 +108,8 @@ bool	take_forks(t_philo *philo);
 void	release_forks(t_philo *philo);
 
 //conditions
-bool	philo_is_dead(t_philo *philo);
+bool	philo_is_dead(t_table *table);
+//bool	philo_is_dead(t_philo *philo);
 bool	all_philo_have_eat(t_table *table);
 
 //routine

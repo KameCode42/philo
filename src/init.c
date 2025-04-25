@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:07:04 by david             #+#    #+#             */
-/*   Updated: 2025/04/24 13:55:23 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 10:55:13 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	init_table(t_table *table, char **argv)
 	else
 		table->nbr_meals_eat = -1;
 	table->start_time = current_time();
-	table->someone_died = false;
 	pthread_mutex_init(&table->print_lock, NULL);
 	pthread_mutex_init(&table->death_lock, NULL);
 	init_philo(table);
