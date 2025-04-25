@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/24 13:55:38 by david            ###   ########.fr       */
+/*   Updated: 2025/04/24 13:59:40 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	philo_sleep(t_philo *philo)
 	ft_usleep(philo->table->time_to_sleep);
 }
 
-void	philo_die(t_philo *philo)
+void	philo_die(t_philo *philo)//a modifier
 {
 	pthread_mutex_lock(&philo->table->death_lock);
 	if (philo->table->someone_died == false)

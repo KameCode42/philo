@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 12:47:40 by david             #+#    #+#             */
-/*   Updated: 2025/04/24 13:55:17 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 10:29:11 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,45 +34,57 @@
 // Prend d’abord la fourchette droite
 // Puis la fourchette gauche
 //
+// impairs : left → right
+// pairs : right → left
+//
 // =============================================================================
+
+bool	take_forks_peer(t_philo *philo)
+{
+	if (pthread_mutex_lock(&philo->next->fork_lock) != 0)
+		return (false);
+	print_state(philo, "has taken a fork");
+	if (philo == philo->next)
+	{
+		ft_usleep(philo->table->time_to_die);
+		pthread_mutex_unlock(&philo->next->fork_lock);
+		return (false);
+	}
+	if (pthread_mutex_lock(&philo->fork_lock) != 0)
+	{
+		pthread_mutex_unlock(&philo->next->fork_lock);
+		return (false);
+	}
+	print_state(philo, "has taken a second fork");
+	return (true);
+}
+
+bool	take_forks_odd(t_philo *philo)
+{
+	if (pthread_mutex_lock(&philo->fork_lock) != 0)
+		return (false);
+	print_state(philo, "has taken a fork");
+	if (philo == philo->next)
+	{
+		ft_usleep(philo->table->time_to_die);
+		pthread_mutex_unlock(&philo->fork_lock);
+		return (false);
+	}
+	if (pthread_mutex_lock(&philo->next->fork_lock) != 0)
+	{
+		pthread_mutex_unlock(&philo->fork_lock);
+		return (false);
+	}
+	print_state(philo, "has taken a second fork");
+	return (true);
+}
 
 bool	take_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
-	{
-		if (pthread_mutex_lock(&philo->next->fork_lock) != 0)
-			return (false);
-		print_state(philo, "has taken a fork");
-		if (philo == philo->next)
-		{
-			ft_usleep(philo->table->time_to_die);
-			return (false);
-		}
-		if (pthread_mutex_lock(&philo->fork_lock) != 0)
-		{
-			pthread_mutex_lock(&philo->next->fork_lock);
-			return (false);
-		}
-		print_state(philo, "has taken a second fork");
-	}
+		return (take_forks_peer(philo));
 	else
-	{
-		if (pthread_mutex_lock(&philo->fork_lock) != 0)
-			return (false);
-		print_state(philo, "has taken a fork");
-		if (philo == philo->next)
-		{
-			ft_usleep(philo->table->time_to_die);
-			return (false);
-		}
-		if (pthread_mutex_lock(&philo->next->fork_lock) != 0)
-		{
-			pthread_mutex_unlock(&philo->fork_lock);
-			return (false);
-		}
-		print_state(philo, "has taken a second fork");
-	}
-	return (true);
+		return (take_forks_odd(philo));
 }
 
 void	release_forks(t_philo *philo)

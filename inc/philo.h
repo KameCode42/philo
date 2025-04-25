@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:18 by david             #+#    #+#             */
-/*   Updated: 2025/04/24 13:55:02 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 10:11:48 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	init_philo(t_table *table);
 void	init_table(t_table *table, char **argv);
 
 //forks
+bool	take_forks_peer(t_philo *philo);
+bool	take_forks_odd(t_philo *philo);
 bool	take_forks(t_philo *philo);
 void	release_forks(t_philo *philo);
 

@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 11:49:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/24 13:18:01 by david            ###   ########.fr       */
+/*   Updated: 2025/04/24 13:59:44 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 //
 // =============================================================================
 
-bool	philo_is_dead(t_philo *philo)
+bool	philo_is_dead(t_philo *philo)// a modifier
 {
 	size_t	time_since_last_meal;
 	bool	is_dead;
