@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:07:04 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 10:55:13 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 13:22:49 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	create_threads(t_table *table)
 	{
 		pthread_create(&table->philo[i].thread, NULL, routine_philo,
 			&table->philo[i]);
-		ft_usleep(50);
 		i++;
 	}
+	table->start_time = current_time();
 }
 
 void	wait_for_thread(t_table *table)

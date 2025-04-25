@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 10:58:59 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 13:24:58 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,19 @@ void	*routine_philo(void *param)
 	t_philo	*philo;
 
 	philo = (t_philo *)param;
+	while (philo->table->start_time == 0)
+		usleep(50);
 	philo_think(philo);
 	if (philo->id % 2 == 0)
 		ft_usleep(100);
 	while (!philo_is_dead(philo->table) && !all_philo_have_eat(philo->table))
 	{
+		philo_die(philo);
 		philo_eat(philo);
 		philo_die(philo);
 		philo_sleep(philo);
 		philo_die(philo);
 		philo_think(philo);
-		philo_die(philo);
 		ft_usleep(5);
 	}
 	return (NULL);
