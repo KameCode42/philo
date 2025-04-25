@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 11:49:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 10:40:26 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 10:59:12 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ bool	philo_is_dead(t_table *table)
 	return (false);
 }
 
-
 bool	all_philo_have_eat(t_table *table)
 {
 	int	i;
@@ -71,22 +70,3 @@ bool	all_philo_have_eat(t_table *table)
 	}
 	return (true);
 }
-
-/*
-bool	philo_is_dead(t_philo *philo)// a modifier
-{
-	size_t	time_since_last_meal;
-	bool	is_dead;
-
-	pthread_mutex_lock(&philo->state_lock);
-	time_since_last_meal = current_time() - philo->last_meal_time;
-	is_dead = (time_since_last_meal >= philo->table->time_to_die);
-	if (is_dead)
-	{
-		philo->state = DEAD;
-		philo_die(philo);
-	}
-	pthread_mutex_unlock(&philo->state_lock);
-	return (is_dead);
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 10:56:06 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 10:58:59 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	philo_die(t_philo *philo)
 
 	pthread_mutex_lock(&philo->state_lock);
 	time_since_last_meal = current_time() - philo->last_meal_time;
-	if (philo->state != DEAD && time_since_last_meal >= philo->table->time_to_die)
+	if (philo->state != DEAD
+		&& time_since_last_meal >= philo->table->time_to_die)
 	{
 		philo->state = DEAD;
 		print_state(philo, "died");
@@ -94,16 +95,3 @@ void	*routine_philo(void *param)
 	}
 	return (NULL);
 }
-
-/*
-void	philo_die(t_philo *philo)//a modifier
-{
-	pthread_mutex_lock(&philo->table->death_lock);
-	if (philo->table->someone_died == false)
-	{
-		print_state(philo, "is dead");
-		philo->table->someone_died = true;
-	}
-	pthread_mutex_unlock(&philo->table->death_lock);
-}
-*/
