@@ -6,12 +6,25 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:07:04 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 13:22:49 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 13:39:52 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+// =============================================================================
+// create_threads :
+//
+// permet de creer un thread par philo
+// inclus la routine de chaque philo autour de la table
+//
+//
+// =============================================================================
+// wait_for_threads :
+//
+// permet d attendre la fin du processus appeler
+// si pthread = thread 1, on attend la fin du processus thread 1
+//
 // =============================================================================
 // init_philo :
 //

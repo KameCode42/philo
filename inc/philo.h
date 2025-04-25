@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:18 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 10:55:08 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 13:30:57 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void	release_forks(t_philo *philo);
 
 //conditions
 bool	philo_is_dead(t_table *table);
-//bool	philo_is_dead(t_philo *philo);
 bool	all_philo_have_eat(t_table *table);
 
 //routine

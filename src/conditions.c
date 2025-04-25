@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 11:49:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 10:59:12 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 13:33:59 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 // =============================================================================
 // check_philo_dead :
 //
-// time_since_last_meal = temps sans manger
-// time_since_last_meal = temps actuel - dernier repas
-// exemple :                   12h            10h    = 2h
-// donc philo mange toute les 2h sinon il meurt
-// si un philo meurt fin de la simulation
+// permet de check si un philo est mort autour de la table
+// si oui la boucle s'arrete
+// la fonction se contente de verifier si un philo a deja ete declarer mort
 //
 // =============================================================================
 // all_philo_have_eat :

@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 13:24:58 by david            ###   ########.fr       */
+/*   Updated: 2025/04/25 13:51:30 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 // =============================================================================
 // routine_philo :
 //
-// 1 -> philo pense
-// 2 -> il mange
-// 3 -> apres manger, il dort
-// 4 -> il repense
-// si il y a un mort la simulation s'arrete
+// le thread boucle en attente -> tant que start_time n'a pas ete initialiser
+// une fois que create_threads est initier avec start time
+// tous les threads sortent de cette boucle et demarrent en même temps
+// laps de temps pour la prise de fourchette
+// tant qu aucun philo est mort et que les repas ne sont pas terminer on boucle
+// controle a chaque etat si un philo est mort
+// sinon il pense, mange, dors ou meurt
 //
 // =============================================================================
 
