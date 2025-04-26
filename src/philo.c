@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:38 by david             #+#    #+#             */
-/*   Updated: 2025/04/24 11:20:08 by david            ###   ########.fr       */
+/*   Updated: 2025/04/26 15:18:46 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ int	main(int argc, char **argv)
 	if (check_args(argc, argv) != 0)
 		return (1);
 	init_table(&table, argv);
+	create_threads(&table);
 	return (0);
 }

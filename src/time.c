@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:44 by david             #+#    #+#             */
-/*   Updated: 2025/04/26 10:26:48 by david            ###   ########.fr       */
+/*   Updated: 2025/04/26 16:42:53 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,21 @@ size_t	current_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-int	ft_usleep(size_t ms)
+int	ft_usleep(size_t ms, t_table *table)
 {
 	size_t	start;
 
 	start = current_time();
 	while (current_time() - start < ms)
+	{
+		pthread_mutex_lock(&table->death_lock);
+		if (table->program_run == false)
+		{
+			pthread_mutex_unlock(&table->death_lock);
+			break ;
+		}
+		pthread_mutex_unlock(&table->death_lock);
 		usleep(500);
+	}
 	return (0);
 }

@@ -6,24 +6,18 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:07:04 by david             #+#    #+#             */
-/*   Updated: 2025/04/26 11:20:53 by david            ###   ########.fr       */
+/*   Updated: 2025/04/26 16:30:56 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 // =============================================================================
-// create_threads :
+// init_table :
 //
-// permet de creer un thread par philo
-// inclus la routine de chaque philo autour de la table
-//
-//
-// =============================================================================
-// wait_for_threads :
-//
-// permet d attendre la fin du processus appeler
-// si pthread = thread 1, on attend la fin du processus thread 1
+// init les argv et les convertit
+// debut de la simulation = temps actuel
+// integre init philo a init table
 //
 // =============================================================================
 // init_philo :
@@ -40,38 +34,22 @@
 // si 5 philo : 5 % 5 == 0 on revient au debut
 //
 // =============================================================================
-// init_table :
-//
-// init les argv et les convertit
-// debut de la simulation = temps actuel
-// integre init philo a init table
-//
-// =============================================================================
 
-void	create_threads(t_table *table)
+void	init_table(t_table *table, char **argv)
 {
-	int	i;
-
-	i = 0;
+	table->nbr_of_philo = ft_atoi(argv[1]);
+	table->time_to_die = ft_atoi(argv[2]);
+	table->time_to_eat = ft_atoi(argv[3]);
+	table->time_to_sleep = ft_atoi(argv[4]);
+	if (argv[5])
+		table->nbr_meals_eat = ft_atoi(argv[5]);
+	else
+		table->nbr_meals_eat = -1;
 	table->start_time = current_time();
-	while (i < table->nbr_of_philo)
-	{
-		pthread_create(&table->philo[i].thread, NULL, routine_philo,
-			&table->philo[i]);
-		i++;
-	}
-}
-
-void	wait_for_thread(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->nbr_of_philo)
-	{
-		pthread_join(table->philo[i].thread, NULL);
-		i++;
-	}
+	pthread_mutex_init(&table->print_lock, NULL);
+	pthread_mutex_init(&table->death_lock, NULL);
+	pthread_mutex_init(&table->program_lock, NULL);
+	table->program_run = true;
 }
 
 void	init_philo(t_table *table)
@@ -92,22 +70,4 @@ void	init_philo(t_table *table)
 		table->philo[i].next = &table->philo[(i + 1) % table->nbr_of_philo];
 		i++;
 	}
-	create_threads(table);
-	wait_for_thread(table);
-}
-
-void	init_table(t_table *table, char **argv)
-{
-	table->nbr_of_philo = ft_atoi(argv[1]);
-	table->time_to_die = ft_atoi(argv[2]);
-	table->time_to_eat = ft_atoi(argv[3]);
-	table->time_to_sleep = ft_atoi(argv[4]);
-	if (argv[5])
-		table->nbr_meals_eat = ft_atoi(argv[5]);
-	else
-		table->nbr_meals_eat = -1;
-	table->start_time = current_time();
-	pthread_mutex_init(&table->print_lock, NULL);
-	pthread_mutex_init(&table->death_lock, NULL);
-	init_philo(table);
 }

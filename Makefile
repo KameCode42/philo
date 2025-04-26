@@ -11,6 +11,7 @@ SRCS		= ./src/utils.c \
 			./src/conditions.c \
 			./src/forks.c \
 			./src/routine.c \
+			./src/threads.c \
 			./src/philo.c \
 
 OBJS 		= $(SRCS:.c=.o)

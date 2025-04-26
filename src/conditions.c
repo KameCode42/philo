@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 11:49:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 13:33:59 by david            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:23:09 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,49 @@
 //
 // =============================================================================
 
-bool	philo_is_dead(t_table *table)
+bool	check_philo_death(t_philo *philo)
 {
-	int	i;
-
-	i = 0;
-	while (i < table->nbr_of_philo)
+	pthread_mutex_lock(&philo->state_lock);
+	if (philo->state != DEAD
+		&& current_time() - philo->last_meal_time >= philo->table->time_to_die)
 	{
-		pthread_mutex_lock(&table->philo[i].state_lock);
-		if (table->philo[i].state == DEAD)
-		{
-			pthread_mutex_unlock(&table->philo[i].state_lock);
-			return (true);
-		}
-		pthread_mutex_unlock(&table->philo[i].state_lock);
-		i++;
+		philo->state = DEAD;
+		print_state(philo, "died");
+		pthread_mutex_lock(&philo->table->death_lock);
+		philo->table->program_run = false;
+		pthread_mutex_unlock(&philo->table->death_lock);
+		pthread_mutex_unlock(&philo->state_lock);
+		return (true);
 	}
+	pthread_mutex_unlock(&philo->state_lock);
 	return (false);
+}
+
+void	*monitor_death(void *param)
+{
+	t_table	*table;
+	int		i;
+
+	table = (t_table *)param;
+	while (is_program_running(table))
+	{
+		i = 0;
+		while (i < table->nbr_of_philo)
+		{
+			if (check_philo_death(&table->philo[i]))
+				return (NULL);
+			i++;
+		}
+		if (all_philo_have_eat(table))
+		{
+			pthread_mutex_lock(&table->death_lock);
+			table->program_run = false;
+			pthread_mutex_unlock(&table->death_lock);
+			return (NULL);
+		}
+		ft_usleep(1, table);
+	}
+	return (NULL);
 }
 
 bool	all_philo_have_eat(t_table *table)

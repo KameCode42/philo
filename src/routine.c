@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 13:51:30 by david            ###   ########.fr       */
+/*   Updated: 2025/04/26 16:41:39 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 
 void	philo_think(t_philo *philo)
 {
-	if (philo_is_dead(philo->table) == true)
-		return ;
 	pthread_mutex_lock(&philo->state_lock);
 	philo->state = THINK;
 	pthread_mutex_unlock(&philo->state_lock);
@@ -37,8 +35,14 @@ void	philo_think(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
-	if (philo_is_dead(philo->table) == true)
+	pthread_mutex_lock(&philo->state_lock);
+	if (philo->table->nbr_meals_eat != -1
+		&& philo->meals_eaten >= philo->table->nbr_meals_eat)
+	{
+		pthread_mutex_unlock(&philo->state_lock);
 		return ;
+	}
+	pthread_mutex_unlock(&philo->state_lock);
 	if (take_forks(philo) == false)
 		return ;
 	pthread_mutex_lock(&philo->state_lock);
@@ -47,34 +51,17 @@ void	philo_eat(t_philo *philo)
 	philo->meals_eaten += 1;
 	print_state(philo, "is eating");
 	pthread_mutex_unlock(&philo->state_lock);
-	ft_usleep(philo->table->time_to_eat);
+	ft_usleep(philo->table->time_to_eat, philo->table);
 	release_forks(philo);
 }
 
 void	philo_sleep(t_philo *philo)
 {
-	if (philo_is_dead(philo->table) == true)
-		return ;
 	pthread_mutex_lock(&philo->state_lock);
 	philo->state = SLEEP;
 	pthread_mutex_unlock(&philo->state_lock);
 	print_state(philo, "is sleeping");
-	ft_usleep(philo->table->time_to_sleep);
-}
-
-void	philo_die(t_philo *philo)
-{
-	size_t	time_since_last_meal;
-
-	pthread_mutex_lock(&philo->state_lock);
-	time_since_last_meal = current_time() - philo->last_meal_time;
-	if (philo->state != DEAD
-		&& time_since_last_meal >= philo->table->time_to_die)
-	{
-		philo->state = DEAD;
-		print_state(philo, "died");
-	}
-	pthread_mutex_unlock(&philo->state_lock);
+	ft_usleep(philo->table->time_to_sleep, philo->table);
 }
 
 void	*routine_philo(void *param)
@@ -82,20 +69,18 @@ void	*routine_philo(void *param)
 	t_philo	*philo;
 
 	philo = (t_philo *)param;
-	while (philo->table->start_time == 0)
-		usleep(50);
-	philo_think(philo);
-	if (philo->id % 2 == 0)
-		ft_usleep(100);
-	while (!philo_is_dead(philo->table) && !all_philo_have_eat(philo->table))
+	while (is_program_running(philo->table) == true)
 	{
-		philo_die(philo);
-		philo_eat(philo);
-		philo_die(philo);
-		philo_sleep(philo);
-		philo_die(philo);
+		if (is_program_running(philo->table) == false)
+			break ;
 		philo_think(philo);
-		ft_usleep(5);
+		if (is_program_running(philo->table) == false)
+			break ;
+		philo_eat(philo);
+		if (is_program_running(philo->table) == false)
+			break ;
+		philo_sleep(philo);
+		ft_usleep(5, philo->table);
 	}
 	return (NULL);
 }

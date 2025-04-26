@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:18 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 13:30:57 by david            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:22:56 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@
 // time_to_sleep -> temps pour dormir
 // nbr_meals_eat -> nbr de repas que va manger le philo = option dans args
 // start_time -> debut de simulation = temps actuel
+// monitor_thread -> pour le thread du monitor
 // someone_died -> boolean pour la mort
 // death_lock -> verouille l'etat de mort
 // print_lock -> verouille les print (evite data race)
+// program_lock -> mutex pour l arret de la simulation
 // philo[MAX_PHILO] -> la structure table a acces a la structure philo
 //
 // =============================================================================
@@ -81,23 +83,25 @@ typedef struct s_table
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	int				nbr_meals_eat;
+	bool			program_run;
 	size_t			start_time;
+	pthread_t		monitor_thread;
 	pthread_mutex_t	death_lock;
 	pthread_mutex_t	print_lock;
+	pthread_mutex_t	program_lock;
 	t_philo			philo[MAX_PHILO];
 }	t_table;
 
 //utils
 int		ft_atoi(const char *str);
-void	print_state(t_philo *philo, const char *message);
+void	print_state(t_philo *philo, const char *state);
+bool	is_program_running(t_table *table);
 
 //time
 size_t	current_time(void);
-int		ft_usleep(size_t ms);
+int		ft_usleep(size_t ms, t_table *table);
 
 //init
-void	create_threads(t_table *table);
-void	wait_for_thread(t_table *table);
 void	init_philo(t_table *table);
 void	init_table(t_table *table, char **argv);
 
@@ -108,15 +112,19 @@ bool	take_forks(t_philo *philo);
 void	release_forks(t_philo *philo);
 
 //conditions
-bool	philo_is_dead(t_table *table);
+bool	check_philo_death(t_philo *philo);
+void	*monitor_death(void *param);
 bool	all_philo_have_eat(t_table *table);
 
 //routine
 void	philo_think(t_philo *philo);
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
-void	philo_die(t_philo *philo);
 void	*routine_philo(void *param);
+
+//threads
+void	create_threads(t_table *table);
+void	wait_for_thread(t_table *table);
 
 //main
 int		check_args(int argc, char **argv);

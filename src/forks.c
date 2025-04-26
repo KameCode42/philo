@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 12:47:40 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 13:39:22 by david            ###   ########.fr       */
+/*   Updated: 2025/04/26 15:42:28 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,19 @@
 
 bool	take_forks_peer(t_philo *philo)
 {
+	if (is_program_running(philo->table) == false)
+		return (false);
 	if (pthread_mutex_lock(&philo->next->fork_lock) != 0)
 		return (false);
 	print_state(philo, "has taken a fork");
+	if (is_program_running(philo->table) == false)
+	{
+		pthread_mutex_unlock(&philo->next->fork_lock);
+		return (false);
+	}
 	if (philo == philo->next)
 	{
-		ft_usleep(philo->table->time_to_die);
+		ft_usleep(philo->table->time_to_die, philo->table);
 		pthread_mutex_unlock(&philo->next->fork_lock);
 		return (false);
 	}
@@ -64,12 +71,19 @@ bool	take_forks_peer(t_philo *philo)
 
 bool	take_forks_odd(t_philo *philo)
 {
+	if (is_program_running(philo->table) == false)
+		return (false);
 	if (pthread_mutex_lock(&philo->fork_lock) != 0)
 		return (false);
 	print_state(philo, "has taken a fork");
+	if (is_program_running(philo->table) == false)
+	{
+		pthread_mutex_unlock(&philo->fork_lock);
+		return (false);
+	}
 	if (philo == philo->next)
 	{
-		ft_usleep(philo->table->time_to_die);
+		ft_usleep(philo->table->time_to_die, philo->table);
 		pthread_mutex_unlock(&philo->fork_lock);
 		return (false);
 	}
@@ -84,6 +98,8 @@ bool	take_forks_odd(t_philo *philo)
 
 bool	take_forks(t_philo *philo)
 {
+	if (is_program_running(philo->table) == false)
+		return (false);
 	if (philo->id % 2 == 0)
 		return (take_forks_peer(philo));
 	else
