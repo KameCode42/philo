@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:07:04 by david             #+#    #+#             */
-/*   Updated: 2025/04/25 13:39:52 by david            ###   ########.fr       */
+/*   Updated: 2025/04/26 11:20:53 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	create_threads(t_table *table)
 	int	i;
 
 	i = 0;
+	table->start_time = current_time();
 	while (i < table->nbr_of_philo)
 	{
 		pthread_create(&table->philo[i].thread, NULL, routine_philo,
 			&table->philo[i]);
 		i++;
 	}
-	table->start_time = current_time();
 }
 
 void	wait_for_thread(t_table *table)
