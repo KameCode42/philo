@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 15:29:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/27 12:26:06 by david            ###   ########.fr       */
+/*   Updated: 2025/04/27 12:58:12 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 // =============================================================================
 // create_threads :
+//
+// chaque philo est un thread et execute des tache en parallele
+// grace au mutex on verouille un thread afin d'eviter qu il fasse la meme
+// tache au meme moment
 //
 // permet de creer un thread par philo
 // inclus la routine de chaque philo autour de la table
