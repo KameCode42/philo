@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:44 by david             #+#    #+#             */
-/*   Updated: 2025/04/26 16:42:53 by david            ###   ########.fr       */
+/*   Updated: 2025/04/27 12:20:30 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 // enregistre le temps de depart
 // entre dans une boucle qui :
 // vérifie continuellement le temps écoulé
+// verifie aussi si la simulation est arreter
 // compare avec la durée souhaitée
 // fait une micro-pause de 500 microsecondes à chaque itération
-// simule le temps de repas par exemple
 //
 // =============================================================================
 

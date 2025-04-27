@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:07:04 by david             #+#    #+#             */
-/*   Updated: 2025/04/26 16:30:56 by david            ###   ########.fr       */
+/*   Updated: 2025/04/27 12:37:53 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 // =============================================================================
 // init_table :
 //
+// argv[6] = option de nombre de repas
 // init les argv et les convertit
-// debut de la simulation = temps actuel
-// integre init philo a init table
+// program_run -> booleen pour l arret ou non du programme
 //
 // =============================================================================
 // init_philo :
 //
 // id permet d'identifier le philo (philo commence a 1)
 // combien de fois un philo a manger
-// dernier repas = start time (tant que le philo a pas manger = last meal)
+// permet au philo de partir au meme point de demarrage
 // init thread par philo
 // init le mutex fork_lock
-// debut de simulation, les philos pensent
+// etat du debut d'un philo = penser
 // init le mutex print_lock
 // philo[i] a acces a la structure table
 // permet d'assigner le bon nombre de philo et fourchette

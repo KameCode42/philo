@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 12:47:40 by david             #+#    #+#             */
-/*   Updated: 2025/04/26 15:42:28 by david            ###   ########.fr       */
+/*   Updated: 2025/04/27 12:38:32 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 // =============================================================================
 // take_forks :
+//
+// pour chaque action on check si un mort survient
 //
 // permet d'eviter les data races -> action qu un philo ne peut pas faire
 // exemple si deux philo choppe la meme fourchette c est un data race

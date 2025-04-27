@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 15:29:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/26 17:23:05 by david            ###   ########.fr       */
+/*   Updated: 2025/04/27 12:26:06 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@
 //
 // permet de creer un thread par philo
 // inclus la routine de chaque philo autour de la table
-//
+// creer le thread pour le monitoring
+// lance le monitor pour verifier continuellement si un mort ou repas terminer
+// le programme attend que le thread monitor_death se termine
+// (soit parce qu’un philo est mort, soit parce que tout le monde a manger
+// 
 //
 // =============================================================================
 // wait_for_threads :
 //
-// permet d attendre la fin du processus appeler
-// si pthread = thread 1, on attend la fin du processus thread 1
+// permet d attendre qu'un thread se termine avant de continuer
+// si pthread = thread 1, on attend la fin du processus thread 1, sa routine
 //
 // ============================================================================
 

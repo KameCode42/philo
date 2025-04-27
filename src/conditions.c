@@ -6,18 +6,25 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 11:49:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/26 17:23:09 by david            ###   ########.fr       */
+/*   Updated: 2025/04/27 12:46:09 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 // =============================================================================
-// check_philo_dead :
+// check_philo_death :
 //
-// permet de check si un philo est mort autour de la table
-// si oui la boucle s'arrete
-// la fonction se contente de verifier si un philo a deja ete declarer mort
+// si un philo n'est pas deja mort et que le temps du dernier repas est
+// plus grand que le temps de mort le philo meurt on arrete le prgramme
+//
+// =============================================================================
+// monitor_death :
+//
+// permet de verifier continuellment si un philo est mort et prend en compte
+// le nombre de repas (option)
+// si un mort on arrete le programme avec check_philo_death
+// si le nombre de repas est atteint, program_run = false
 //
 // =============================================================================
 // all_philo_have_eat :
