@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:49 by david             #+#    #+#             */
-/*   Updated: 2025/04/27 12:19:34 by david            ###   ########.fr       */
+/*   Updated: 2025/04/29 17:52:34 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ int	ft_atoi(const char *str)
 
 void	print_state(t_philo *philo, const char *state)
 {
-	if (is_program_running(philo->table) == false)
-		return ;
 	pthread_mutex_lock(&philo->table->print_lock);
+	if (is_program_running(philo->table) == false)
+	{
+		pthread_mutex_unlock(&philo->table->print_lock);
+		return ;
+	}
 	printf("%lu Philosopher %d %s\n", current_time() - philo->table->start_time,
 		philo->id, state);
 	pthread_mutex_unlock(&philo->table->print_lock);

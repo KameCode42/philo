@@ -3,7 +3,7 @@ NAME		= philo
 CC			= gcc
 RM			= rm -f
 
-FLAGS		= -Wall -Wextra -Werror -pthread -Iinc -g -O0
+FLAGS		= -Wall -Wextra -Werror -pthread -Iinc
 
 SRCS		= ./src/utils.c \
 			./src/time.c \
