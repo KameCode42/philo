@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/29 18:41:48 by david            ###   ########.fr       */
+/*   Updated: 2025/04/29 18:58:40 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	philo_eat(t_philo *philo)
 	philo->state = EAT;
 	philo->last_meal_time = current_time();
 	philo->meals_eaten += 1;
-	print_state(philo, "is eating");
 	pthread_mutex_unlock(&philo->state_lock);
+	print_state(philo, "is eating");
 	ft_usleep(philo->table->time_to_eat, philo->table);
 	release_forks(philo);
 }
