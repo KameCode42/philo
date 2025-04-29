@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 15:29:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/27 12:58:12 by david            ###   ########.fr       */
+/*   Updated: 2025/04/29 18:38:10 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	create_threads(t_table *table)
 		i++;
 	}
 	pthread_create(&table->monitor_thread, NULL, monitor_death, table);
-	pthread_join(table->monitor_thread, NULL);
 	wait_for_thread(table);
+	pthread_join(table->monitor_thread, NULL);
 }
 
 void	wait_for_thread(t_table *table)

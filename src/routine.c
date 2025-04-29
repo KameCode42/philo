@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:57:45 by david             #+#    #+#             */
-/*   Updated: 2025/04/27 12:31:30 by david            ###   ########.fr       */
+/*   Updated: 2025/04/29 18:41:48 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ void	*routine_philo(void *param)
 	philo = (t_philo *)param;
 	while (is_program_running(philo->table) == true)
 	{
-		if (is_program_running(philo->table) == false)
-			break ;
 		philo_think(philo);
 		if (is_program_running(philo->table) == false)
 			break ;
@@ -77,7 +75,10 @@ void	*routine_philo(void *param)
 		if (is_program_running(philo->table) == false)
 			break ;
 		philo_sleep(philo);
+		if (is_program_running(philo->table) == false)
+			break ;
 		ft_usleep(5, philo->table);
 	}
+	release_forks(philo);
 	return (NULL);
 }
