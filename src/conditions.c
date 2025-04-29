@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conditions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dle-fur <dle-fur@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 11:49:27 by david             #+#    #+#             */
-/*   Updated: 2025/04/27 12:46:09 by david            ###   ########.fr       */
+/*   Updated: 2025/04/29 20:04:51 by dle-fur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ bool	check_philo_death(t_philo *philo)
 		print_state(philo, "died");
 		pthread_mutex_lock(&philo->table->death_lock);
 		philo->table->program_run = false;
-		pthread_mutex_unlock(&philo->table->death_lock);
 		pthread_mutex_unlock(&philo->state_lock);
+		pthread_mutex_unlock(&philo->table->death_lock);
 		return (true);
 	}
 	pthread_mutex_unlock(&philo->state_lock);
