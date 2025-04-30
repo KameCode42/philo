@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 12:47:40 by david             #+#    #+#             */
-/*   Updated: 2025/04/29 18:30:38 by david            ###   ########.fr       */
+/*   Updated: 2025/04/30 18:07:07 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ bool	take_forks(t_philo *philo)
 		return (take_forks_odd(philo));
 }
 
-void release_forks(t_philo *philo)
+void	release_forks(t_philo *philo)
 {
-	if (philo->id % 2 == 0) 
+	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_unlock(&philo->next->fork_lock);
 		pthread_mutex_unlock(&philo->fork_lock);
