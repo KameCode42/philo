@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:07:04 by david             #+#    #+#             */
-/*   Updated: 2025/04/27 12:37:53 by david            ###   ########.fr       */
+/*   Updated: 2025/04/30 17:48:37 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	init_table(t_table *table, char **argv)
 	table->start_time = current_time();
 	pthread_mutex_init(&table->print_lock, NULL);
 	pthread_mutex_init(&table->death_lock, NULL);
-	pthread_mutex_init(&table->program_lock, NULL);
 	table->program_run = true;
 }
 

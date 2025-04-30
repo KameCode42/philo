@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 10:57:18 by david             #+#    #+#             */
-/*   Updated: 2025/04/26 17:22:56 by david            ###   ########.fr       */
+/*   Updated: 2025/04/30 17:48:29 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ typedef struct s_table
 	pthread_t		monitor_thread;
 	pthread_mutex_t	death_lock;
 	pthread_mutex_t	print_lock;
-	pthread_mutex_t	program_lock;
 	t_philo			philo[MAX_PHILO];
 }	t_table;
 
