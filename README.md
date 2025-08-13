@@ -14,7 +14,7 @@ Chaque philosophe :
 
 - Si un philosophe reste trop longtemps sans manger, il meurt et la simulation s’arrête.
 - Si un nombre de repas précis est atteint pour tous les philosophes, la simulation se termine également.
-<br>
+
 # Règles :
 - Nombre de philosophes (> 1 ou <= 200)
 - Temps à mourir (ms ≥ 0) :  Temps maximal qu’un philosophe peut passer sans manger avant de mourir.
