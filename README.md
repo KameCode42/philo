@@ -24,6 +24,7 @@ Chaque philosophe :
 - Le philosophe 1 est assis entre le dernier et le deuxième philosophe.
 - Chaque philosophe a une fourchette à sa gauche et à sa droite.
 - Les ressources (fourchettes) sont protégées par des mutex pour éviter les data races.
+- Aucune variable globale
 
 # Fonctionnement :
 Threads :
