@@ -24,7 +24,7 @@ Chaque philosophe :
 - Le philosophe 1 est assis entre le dernier et le deuxième philosophe.
 - Chaque philosophe a une fourchette à sa gauche et à sa droite.
 - Les ressources (fourchettes) sont protégées par des mutex pour éviter les data races.
-<br>
+
 # Fonctionnement :
 Threads :
 - Chaque philosophe est représenté par un thread (pthread_create).
@@ -46,7 +46,7 @@ Fonctions clés :
 - pthread_mutex_init / lock / unlock / destroy : gestion des verrous
 - gettimeofday ou équivalent : mesurer le temps en millisecondes
 - usleep : pause en microsecondes (converti depuis ms)
-<br>
+
 # Exemple d’exécution :
 ./philo 5 800 200 200 7
 
